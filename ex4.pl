@@ -26,7 +26,7 @@ path(X, Y, [X| Ns]):- edge(X, Z), path(Z, Y, Ns).
 
 % Signature: cycle(Node, Cycle)/2
 % Purpose: Cycle is a cyclic path, denoted a list of nodes, from Node1 to Node1.
-cycle(Node, Cycle):- path(Node, Node, Cycle)
+cycle(Node, Cycle):- path(Node, Node, Cycle).
 
 
 
@@ -47,13 +47,13 @@ cycle(Node, Cycle):- path(Node, Node, Cycle)
 
 % Signature: reverse(Graph1,Graph2)/2
 % Purpose: The edges in Graph1 are reversed in Graph2
-reverse(Graph1, Graph2):- reverse_left(Graph1, Graph2), reverse_right(Graph1, Graph2)
+reverse(Graph1, Graph2):- reverse_left(Graph1, Graph2), reverse_right(Graph1, Graph2).
 
-reverse_left([], Graph2)
-reverse_left([[X,Y] | E1s], Graph2):- member([Y, X], Graph2), reverse_left(E1s, Graph2)
+reverse_left([], Graph2).
+reverse_left([[X,Y] | E1s], Graph2):- member([Y, X], Graph2), reverse_left(E1s, Graph2).
 
-reverse_right(Graph1, [])
-reverse_right(Graph1, [[X, Y]| E2s]):- member([Y, X], Graph1), reverse_right(Graph1, E2s)
+reverse_right(Graph1, []).
+reverse_right(Graph1, [[X, Y]| E2s]):- member([Y, X], Graph1), reverse_right(Graph1, E2s).
 
 
 
@@ -61,8 +61,8 @@ reverse_right(Graph1, [[X, Y]| E2s]):- member([Y, X], Graph1), reverse_right(Gra
 % Signature: degree(Node, Graph, Degree)/3
 % Purpose: Degree is the degree of node Node, denoted by a Church number (as defined in class)
 degree(A, [], zero).
-degree(A, [[A, Y]|Es], s(D)):- degree(A, Es, D)
-degree(A, [[X, Y]|Es, D]):- degree(A, Es, D)
+degree(A, [[A, Y]|Es], s(D)):- degree(A, Es, D).
+degree(A, [[X, Y]|Es, D]):- not(A == X), degree(A, Es, D).
 
 
 
